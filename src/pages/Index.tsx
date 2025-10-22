@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import VoiceTutor from "@/components/VoiceTutor";
+import { ParaphraseTools } from "@/components/ParaphraseTools";
 import ProgressDashboard from "@/components/ProgressDashboard";
-import { Sparkles, LogOut } from "lucide-react";
+import { FileText, LogOut } from "lucide-react";
 
 const Index = () => {
   const [user, setUser] = useState<any>(null);
@@ -46,9 +46,9 @@ const Index = () => {
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="bg-primary/10 p-2 rounded-full">
-              <Sparkles className="h-5 w-5 text-primary" />
+              <FileText className="h-5 w-5 text-primary" />
             </div>
-            <h1 className="text-xl font-bold">LinguaGlow</h1>
+            <h1 className="text-xl font-bold">AI Content Assistant</h1>
           </div>
           <Button variant="ghost" size="sm" onClick={handleSignOut}>
             <LogOut className="h-4 w-4 mr-2" />
@@ -58,19 +58,19 @@ const Index = () => {
       </header>
 
       <main className="container py-6">
-        <Tabs defaultValue="tutor" className="w-full">
+        <Tabs defaultValue="tools" className="w-full">
           <TabsList className="grid w-full max-w-md mx-auto grid-cols-2">
-            <TabsTrigger value="tutor">AI Tutor</TabsTrigger>
-            <TabsTrigger value="progress">Progress</TabsTrigger>
+            <TabsTrigger value="tools">Tools</TabsTrigger>
+            <TabsTrigger value="history">Usage History</TabsTrigger>
           </TabsList>
           
-          <TabsContent value="tutor" className="mt-6">
-            <div className="max-w-4xl mx-auto h-[calc(100vh-220px)]">
-              <VoiceTutor />
+          <TabsContent value="tools" className="mt-6">
+            <div className="max-w-4xl mx-auto">
+              <ParaphraseTools />
             </div>
           </TabsContent>
           
-          <TabsContent value="progress" className="mt-6">
+          <TabsContent value="history" className="mt-6">
             <div className="max-w-6xl mx-auto">
               <ProgressDashboard />
             </div>
