@@ -1,58 +1,56 @@
-# Welcome to your Lovable project
+# Linguaglow — Perfected Quest
+
+Hi — I'm Mkhize975. This is my personal copy of the Lovable-generated Linguaglow project. I like things simple, practical, and focused on getting features running quickly. Below is how I work locally, edit on GitHub, and publish.
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/29968afa-679a-4dce-91de-876e7fafa2eb
+Project URL: https://lovable.dev/projects/29968afa-679a-4dce-91de-876e7fafa2eb
 
-## How can I edit this code?
+## TL;DR — Get running locally
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/29968afa-679a-4dce-91de-876e7fafa2eb) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+1. Clone the repo
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
 git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
 cd <YOUR_PROJECT_NAME>
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
+2. Use nvm to install and pick an LTS Node
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```sh
+nvm install --lts
+nvm use --lts
+npm install
+```
+
+3. Start the dev server
+
+```sh
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Open the address printed by the dev server (usually http://localhost:5173).
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## How I edit this project
 
-**Use GitHub Codespaces**
+- Use Lovable: open the project link above and edit — changes sync back to this repo automatically.
+- Edit locally with an IDE: clone, make changes, commit, and push. I keep commits frequent and messages concise.
+- Quick fixes on GitHub: use the pencil icon in the file view.
+- Codespaces: use a Codespace when I need a ready-made remote dev environment.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Developer notes (my preferences)
 
-## What technologies are used for this project?
+- Node: stick to the latest LTS (Node 18+). Use nvm for consistency.
+- Install: npm install
+- Start (dev): npm run dev
+- Build: npm run build
+- Preview production build locally: npm run preview (if available)
 
-This project is built with:
+If you add new dependencies, I run tests and a quick audit before merging.
+
+## Tech stack
+
+This project uses:
 
 - Vite
 - TypeScript
@@ -60,14 +58,20 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
+Language composition: mostly TypeScript.
 
-Simply open [Lovable](https://lovable.dev/projects/29968afa-679a-4dce-91de-876e7fafa2eb) and click on Share -> Publish.
+## Deploying
 
-## Can I connect a custom domain to my Lovable project?
+I usually publish from Lovable: open the project and click Share → Publish. Alternatively, build with `npm run build` and deploy the `dist` folder to any static host that supports Vite builds.
 
-Yes, you can!
+## Custom domain
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+In Lovable: Project → Settings → Domains → Connect Domain. Docs: https://docs.lovable.dev/features/custom-domain#custom-domain
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Want to contribute or reach me?
+
+Open an issue or a pull request on GitHub. Mention @Mkhize975 in an issue or PR for a faster look.
+
+---
+
+Small, practical, and to the point — this README reflects how I like to work. If you want a different tone (more formal, more playful, or more technical), tell me which direction and I’ll update it again.
