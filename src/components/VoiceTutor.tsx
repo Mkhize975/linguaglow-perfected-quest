@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Mic, Square, Send } from "lucide-react";
+import { Mic, Square, Send, Volume2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useVoiceRecorder } from "@/hooks/useVoiceRecorder";
 import { Textarea } from "@/components/ui/textarea";
@@ -20,13 +20,37 @@ const VoiceTutor = () => {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
   const { isRecording, startRecording, stopRecording, getAudioBlob } = useVoiceRecorder();
   const { toast } = useToast();
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const speechSynthRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  const speakText = (text: string) => {
+    // Cancel any ongoing speech
+    window.speechSynthesis.cancel();
+    
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+    utterance.volume = 1;
+    
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+    
+    speechSynthRef.current = utterance;
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const stopSpeaking = () => {
+    window.speechSynthesis.cancel();
+    setIsSpeaking(false);
+  };
 
   const streamChat = async (userMessages: Message[]) => {
     const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-tutor`;
@@ -100,6 +124,11 @@ const VoiceTutor = () => {
         }
       }
     }
+    
+    // Speak the completed response
+    if (assistantSoFar) {
+      speakText(assistantSoFar);
+    }
   };
 
   const handleSendMessage = async (text?: string) => {
@@ -150,18 +179,35 @@ const VoiceTutor = () => {
     <div className="flex flex-col h-full">
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((message, index) => (
-          <Card
+          <div
             key={index}
-            className={`${
-              message.role === "assistant"
-                ? "bg-secondary/50 ml-0 mr-auto"
-                : "bg-primary/10 ml-auto mr-0"
-            } max-w-[80%]`}
+            className={`flex gap-2 items-start ${
+              message.role === "assistant" ? "justify-start" : "justify-end"
+            }`}
           >
-            <CardContent className="p-4">
-              <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-            </CardContent>
-          </Card>
+            <Card
+              className={`${
+                message.role === "assistant"
+                  ? "bg-secondary/50"
+                  : "bg-primary/10"
+              } max-w-[80%]`}
+            >
+              <CardContent className="p-4">
+                <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+              </CardContent>
+            </Card>
+            {message.role === "assistant" && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8"
+                onClick={() => speakText(message.content)}
+                disabled={isSpeaking}
+              >
+                <Volume2 className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
         ))}
         {isLoading && (
           <Card className="bg-secondary/50 ml-0 mr-auto max-w-[80%]">
@@ -184,9 +230,20 @@ const VoiceTutor = () => {
             size="icon"
             onClick={handleVoiceRecording}
             disabled={isLoading}
+            title={isRecording ? "Stop recording" : "Start recording"}
           >
             {isRecording ? <Square className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
           </Button>
+          {isSpeaking && (
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={stopSpeaking}
+              title="Stop speaking"
+            >
+              <Square className="h-4 w-4" />
+            </Button>
+          )}
           <Textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
