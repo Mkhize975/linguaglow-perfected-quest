@@ -34,17 +34,50 @@ const VoiceTutor = () => {
     // Cancel any ongoing speech
     window.speechSynthesis.cancel();
     
+    // Wait for voices to load
+    const voices = window.speechSynthesis.getVoices();
+    
     const utterance = new SpeechSynthesisUtterance(text);
+    
+    // Select an English voice if available
+    const englishVoice = voices.find(voice => voice.lang.startsWith('en'));
+    if (englishVoice) {
+      utterance.voice = englishVoice;
+    }
+    
     utterance.rate = 0.9;
     utterance.pitch = 1;
     utterance.volume = 1;
+    utterance.lang = 'en-US';
     
-    utterance.onstart = () => setIsSpeaking(true);
-    utterance.onend = () => setIsSpeaking(false);
-    utterance.onerror = () => setIsSpeaking(false);
+    utterance.onstart = () => {
+      console.log('Speech started');
+      setIsSpeaking(true);
+    };
+    utterance.onend = () => {
+      console.log('Speech ended');
+      setIsSpeaking(false);
+    };
+    utterance.onerror = (event) => {
+      console.error('Speech error:', event);
+      setIsSpeaking(false);
+      toast({
+        title: "Speech Error",
+        description: "Could not play audio. Please try again.",
+        variant: "destructive",
+      });
+    };
     
     speechSynthRef.current = utterance;
-    window.speechSynthesis.speak(utterance);
+    
+    // Ensure voices are loaded before speaking
+    if (voices.length === 0) {
+      window.speechSynthesis.addEventListener('voiceschanged', () => {
+        window.speechSynthesis.speak(utterance);
+      }, { once: true });
+    } else {
+      window.speechSynthesis.speak(utterance);
+    }
   };
 
   const stopSpeaking = () => {
