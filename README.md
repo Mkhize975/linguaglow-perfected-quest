@@ -1,134 +1,158 @@
 # Linguaglow — Perfected Quest
 
-Hi — I'm Mkhize975. This repo contains my app that paraphrases information and generates Excel formulas using on-device AI. I like things simple, practical, and focused on building features fast. Below is what the project is, how it uses client-side Web AI (including the Chrome Built-in AI APIs), how to run it locally, and what you'll need if you're submitting this as an entry to the Google Chrome Built-in AI Challenge 2025.
+Linguaglow is a lightweight, privacy-first web app that helps users:
+- Paraphrase text into clearer, more natural phrasing
+- Generate working Excel formulas (IF, INDEX/MATCH, nested logic, dynamic arrays) from natural-language requests
+- Proofread and translate paraphrases and formula instructions
 
-## Project info
+Built by Mkhize975 for practical, client-first workflow: fast iterations, on-device inference where possible, and an emphasis on clear outputs that non-experts can use immediately.
 
-Project URL: https://lovable.dev/projects/29968afa-679a-4dce-91de-876e7fafa2eb  
-Repository: https://github.com/Mkhize975/linguaglow-perfected-quest
+Live project URL (Lovable): https://lovable.dev/projects/29968afa-679a-4dce-91de-876e7fafa2eb  
 
-What the app does
-- Paraphrases user-provided text into clearer or alternate phrasings.
-- Generates Excel formulas (e.g., nested IFs, INDEX/MATCH, dynamic array formulas) from natural-language requests or structured examples.
-- Offers proofreading and multilingual support for paraphrased outputs and formula instructions.
 
-Why this matters
-- Saves time turning messy notes into usable spreadsheet logic.
-- Helps non-experts produce correct Excel formulas from plain English.
-- Works client-side for privacy, speed, and offline resiliency.
+Table of contents
+- Features
+- Quickstart (run locally)
+- Usage and examples
+- How it uses Chrome Built-in AI APIs
+- Architecture & tech stack
+- Privacy & offline behavior
+- Testing & developer notes
+- Deployment
 
-## Chrome Built-in AI Challenge 2025 — How this app uses the APIs
+Features
+- Paraphrasing: Rewrites user-provided text for clarity, tone, or concision.
+- Excel formula generation: Convert natural-language descriptions or examples into Excel formulas (supports nested IFs, INDEX/MATCH, XLOOKUP, dynamic arrays where available).
+- Proofreading: Grammar and clarity checks for both paraphrased text and formula instructions.
+- Multilingual support: Translate inputs/outputs across common languages.
+- Local-first & hybrid options: Designed to run inference client-side (Gemini Nano / local Web AI) with optional server/hybrid fallbacks for heavier tasks.
 
-This project is built around client-side Web AI and is designed to be compatible with Chrome’s Built-in AI (Gemini Nano and related APIs). The core idea: do as much inference on-device as possible for privacy and responsiveness, while allowing optional hybrid server usage for heavier tasks or mobile reach.
+Quickstart — run locally
+1. Clone
+   git clone https://github.com/Mkhize975/linguaglow-perfected-quest.git
+   cd linguaglow-perfected-quest
 
-APIs used in the project (examples of what I integrate):
-- Prompt API — generate structured prompts for paraphrasing and for formula synthesis; accept multimodal inputs if available.
-- Proofreader API — grammar and clarity corrections for paraphrased text and formula instructions.
-- Summarizer API — distill long descriptions into concise steps used to derive formulas.
-- Writer API / Rewriter API — produce alternate phrasings, interface copy, or multiple formula variants.
-- Translator API — translate user input or outputs to/from multiple languages.
-- (Optional) Gemini Nano — run inference client-side for low-latency paraphrasing and formula generation.
+2. Node via nvm
+   nvm install --lts
+   nvm use --lts
 
-Design benefits:
-- Client-side inference for privacy and offline operation.
-- Low latency and cost-efficiency (no server inference required for many flows).
-- Hybrid option: integrate Firebase AI Logic or Gemini Developer API for heavier server-side tasks or mobile compatibility.
+3. Install
+   npm install
 
-Note: I ensure this is a new project and concept for the 2025 hackathon — it’s not reusing any 2024 submission.
+4. Start dev server
+   npm run dev
+   Open the URL printed by the dev server (typically http://localhost:5173).
 
-## TL;DR — Get running locally
+5. Build for production
+   npm run build
+   npm run preview   # if available to preview a production build locally
 
-1. Clone the repo
-```sh
-git clone <YOUR_GIT_URL>
-cd <YOUR_PROJECT_NAME>
-```
+Usage — UX flows & examples
+- Paraphrase flow
+  1. Paste or type source text.
+  2. Pick tone (formal, casual, concise) and language.
+  3. Click Paraphrase → get 1–3 variants. Use Proofread to check grammar.
 
-2. Use nvm and install dependencies
-```sh
-nvm install --lts
-nvm use --lts
-npm install
-```
+  Example input:
+  "We need to find customers with more than three purchases and flag them for a VIP campaign."
+  Example paraphrase:
+  "Identify customers who have made more than three purchases and mark them as VIP candidates."
 
-3. Start the dev server
-```sh
-npm run dev
-```
-Open the address printed by the dev server (usually http://localhost:5173).
+- Excel formula generation flow
+  1. Provide a plain-English requirement or a few example rows.
+  2. Choose target spreadsheet platform (Excel, Google Sheets).
+  3. Click Generate → app returns a formula and a short explanation.
 
-## How I edit this project
+  Example 1 (simple):
+  Natural language: "Return 'Yes' if Sales > 1000, otherwise 'No'."
+  Generated Excel formula:
+  =IF(B2>1000,"Yes","No")
 
-- Lovable: Open the project link and edit inside Lovable — changes sync back to this repo automatically.
-- Local IDE: Clone, edit, commit, and push. I keep small commits with clear messages.
-- GitHub web: Quick edits via the pencil icon.
-- Codespaces: Use Code → Codespaces → New codespace if I need a ready remote dev environment.
+  Example 2 (lookup):
+  Natural language: "Find the price for product ID in A2 from a table with IDs in D and prices in E."
+  Generated Excel formula (INDEX/MATCH):
+  =INDEX($E$2:$E$100, MATCH(A2, $D$2:$D$100, 0))
 
-## Developer notes (my preferences)
+  Example 3 (dynamic array — Excel 365 / Google Sheets):
+  Natural language: "List unique customers from column B who have purchases > 100."
+  Generated formula (Excel 365):
+  =UNIQUE(FILTER(B2:B100, C2:C100>100))
 
-- Node: Use the latest LTS (Node 18+). Use nvm.
+- Proofreading & translator usage
+  - Submit paraphrased text to the Proofreader API for grammar fixes and clarity suggestions.
+  - Translate outputs with the Translator API for multilingual needs.
+
+How Linguaglow uses Chrome Built-in AI (2025)
+This project is intentionally compatible with Chrome’s Built-in AI tooling (Gemini Nano and related Browser APIs) and uses a client-first strategy:
+- Prompt API: Build structured prompts for paraphrase and formula generation. Supports multimodal inputs where available.
+- Proofreader API: Grammar and clarity corrections for paraphrases and formula descriptions.
+- Summarizer API: Distill long descriptions into concise derivation steps used to synthesize formulas.
+- Writer / Rewriter API: Produce alternate phrasings and multiple formula variants for review.
+- Translator API: Translate inputs or outputs as needed.
+- Gemini Nano (optional): Client-side inference for low-latency paraphrasing and formula generation on capable devices.
+
+Hybrid/server options
+- For heavy workloads or mobile compatibility, you can optionally use a server-side fallback (e.g., Gemini Developer API or Firebase AI Logic). The UI supports plugging in server keys—but defaults to client-side inference wherever possible.
+
+Architecture & tech stack
+- Frontend: Vite + React + TypeScript
+- UI: shadcn-ui + Tailwind CSS
+- Language composition in this repo: TypeScript (~96%), PLpgSQL, CSS, and small other files
+- Client-side inference integrations for low latency and privacy-first behavior
+
+Privacy, security & offline behavior
+- Default behavior: run inference client-side so user data stays on device.
+- Offline support: Basic paraphrasing and simple formula synthesis can work offline on devices that support Gemini Nano or an equivalent on-device engine.
+- Hybrid mode (optional): If you enable server APIs, avoid sending personally-identifying or sensitive data unless explicitly required and consented to by your users.
+- If adding third-party dependencies that affect runtime, run `npm audit` and test before merging.
+
+Developer notes & preferences
+- Node: Use the latest LTS (Node 18+). Use nvm for environment management.
 - Install: npm install
-- Start (dev): npm run dev
+- Dev: npm run dev
 - Build: npm run build
-- Preview production build locally: npm run preview (if available)
-- Tests: add tests for formula generation logic and paraphrase correctness if you change the core model prompts.
+- Preview: npm run preview
+- Tests: Add tests for formula generation logic and paraphrase correctness when changing core prompts or parsers.
 
-If you add dependencies that affect the build or runtime, run a quick security audit and test before merging.
+Configuration & environment variables
+- Many features run client-side with no env variables required.
+- Optional server/hybrid integrations may require API keys:
+  - GEMINI_DEV_API_KEY (if you add server-side Gemini)
+  - FIREBASE_* (if enabling Firebase AI Logic)
+  - Place config in a .env file (do not commit keys)
 
-## Tech stack
+Deployment
+- Lovable: Open the project in Lovable and click Share → Publish for a single-click deploy.
+- Static hosts: Build with `npm run build` and deploy the `dist` folder to Netlify, Vercel, GitHub Pages, or any static host.
+- If deploying a hybrid backend, ensure server endpoints are hosted on secure infrastructure and keys are kept secret.
 
-- Vite
-- TypeScript (majority of the code)
-- React
-- shadcn-ui
-- Tailwind CSS
+Hackathon / submission guidance (Chrome Built-in AI Challenge 2025)
+If you plan to submit this project:
+- Short summary: What the app does (paraphrase + Excel formula generation) and who benefits
+- Technical details: Which Chrome Built-in AI APIs were used and how (Prompt API, Proofreader, Summarizer, Writer, Rewriter, Translator, Gemini Nano)
+- Demo instructions: How to run locally and sample inputs → outputs
+- New/original confirmation: Statement that this is a new 2025 project (not a re-use of a 2024 submission)
+- Links: Repo URL and deployed demo URL, design docs or notes
+- Include a short screencast/GIF showing paraphrase → formula flow
 
-Language composition: mostly TypeScript.
+Contributing
+- Found a bug or want to add a small improvement? Open an issue or submit a PR.
+- Mention @Mkhize975 in PRs or issues for a faster review.
+- Prefer small, focused PRs with clear commit messages and tests where applicable.
 
-## Deploying
+Testing ideas
+- Unit tests for the parser that converts examples + natural language into prompt templates
+- End-to-end tests for UI flows (paraphrase, generate formula, apply proofreader)
+- Golden-file tests for example formula outputs to detect regressions in prompt changes
 
-I usually publish from Lovable: open the project and click Share → Publish. Alternatively, build locally and deploy the `dist` folder to any static host that supports Vite builds.
+Known limitations & future work
+- Formula generation is as good as the prompt templates and on-device model capabilities—always validate generated formulas before using on production spreadsheets.
+- UX improvements: interactive example-to-formula mapping, step-by-step formula derivations, more formula variants.
+- Expand support for more spreadsheet functions and regional function name variants.
 
-## Custom domain
 
-In Lovable: Project → Settings → Domains → Connect Domain. Docs: https://docs.lovable.dev/features/custom-domain#custom-domain
+Contact
+Author: @Mkhize975  
 
-## Google Chrome Built-in AI Challenge 2025 — Submission guidance
 
-If you're submitting this project (or a fork) to the challenge, include the following in your submission package and text description:
-
-1. Short summary (1–2 paragraphs):
-   - What the app does (paraphrasing + Excel formula generation).
-   - The problem it solves and who benefits.
-
-2. Technical details:
-   - Which Chrome Built-in AI APIs were used (Prompt API, Proofreader, Summarizer, Writer, Rewriter, Translator, Gemini Nano).
-   - How APIs are used client-side for privacy and offline support.
-   - Any hybrid or server components (e.g., Firebase AI Logic or Gemini Developer API) and why they are optional.
-
-3. Demo instructions:
-   - How to run locally (TL;DR above).
-   - Example inputs and expected outputs (sample text and the formula the app generates).
-   - Short screencast or GIF showing paraphrase → formula flow (strongly recommended).
-
-4. New/original confirmation:
-   - Statement that the project is new for 2025 and not a re-use of a 2024 project or concept.
-
-5. Links:
-   - Repo URL and deployed demo URL (Lovable publish link or static host).
-   - Any design docs or additional notes.
-
-Hackathon checklist (what I include when submitting)
-- [ ] Working web app or Chrome Extension that demonstrates the APIs
-- [ ] Text description with features, APIs used, and problem statement
-- [ ] Demo video or GIF
-- [ ] Deployment URL (Lovable published link or other host)
-- [ ] Confirmation this is a new 2025 project
-
-## Contributing / Contact
-
-Want to contribute? Open an issue or a pull request. Mention @Mkhize975 in the PR or issue for a quicker review. I merge small incremental improvements, tests, and documentation patches.
-
----
-
-Small, practical, and focused on getting things working — this README explains how the app uses Chrome Built-in AI APIs for paraphrasing and Excel formula generation, how to run it, and what to include for a Google Chrome Built-in AI Challenge 2025 submission.
+Thanks for checking out Linguaglow — small, practical, and focused on making paraphrasing and spreadsheet logic fast and accessible.
