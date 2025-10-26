@@ -1,4 +1,4 @@
-# Linguaglow — Perfected Quest
+# Linguaglow 
 
 Linguaglow is a lightweight, privacy-first web app that helps users:
 - Paraphrase text into clearer, more natural phrasing
