@@ -96,9 +96,8 @@ Record a short **2–3 minute demo video** showing:
 
 ### 🎥 Demo Video
 Watch a 3-minute demo here:
-[▶️ Watch on YouTube]([https://youtu.be/YOUR_VIDEO_LINK](https://youtube.com/shorts/nr_be3iY_wo?si=Z14dyiax6oVU7tx9)
-```
-```text
+[▶️ Watch on YouTube]([[https://youtu.be/YOUR_VIDEO_LINK](https://youtube.com/shorts/nr_be3iY_wo?si=Z14dyiax6oVU7tx9 )]
+
 MIT License
 
 Copyright (c) 2025 Mkhize975
