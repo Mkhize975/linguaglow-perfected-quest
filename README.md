@@ -9,47 +9,6 @@ Built by Mkhize975 for practical, client-first workflow: fast iterations, on-dev
 
 Live project URL (Lovable): https://lovable.dev/projects/29968afa-679a-4dce-91de-876e7fafa2eb  
 
-
-
-Excellent — this is an important requirement for the **Google Chrome Built-in AI Challenge 2025** submission. Let’s finalize this correctly so your project looks **professional, complete, and fully compliant** with the rules.
-
-Here’s exactly what you need for the **GitHub repository setup**, including your open-source license, documentation, and test instructions 👇
-
----
-
-## ✅ 1. Repository Essentials
-
-Your public GitHub repository should contain:
-
-
-
-```text
-MIT License
-
-Copyright (c) 2025 Mkhize975
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-
-
----
-
 ### 🧪 How Judges Can Test the Application
 
 To help the judges test LinguaGlow quickly:
@@ -139,3 +98,28 @@ Record a short **2–3 minute demo video** showing:
 Watch a 3-minute demo here:
 [▶️ Watch on YouTube]([https://youtu.be/YOUR_VIDEO_LINK](https://youtube.com/shorts/nr_be3iY_wo?si=Z14dyiax6oVU7tx9)
 ```
+```text
+MIT License
+
+Copyright (c) 2025 Mkhize975
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+
