@@ -70,11 +70,8 @@ Recorded a short **2–3 minute demo video** showing:
 * App launch
 * Paraphrasing example
 * Excel formula generation
-* Quick voice tutor clip (if included)
-  Upload it to `/demo/demo-video.mp4` or host it unlisted on YouTube and link it in the README.
-
-### 🏷️ Example Section to Add in README:
-
+* Quick voice tutor clip 
+  Upload it to `/demo/demo-video.mp4` .
 
 ### 🎥 Demo Video
 Watch a 3-minute demo here:
