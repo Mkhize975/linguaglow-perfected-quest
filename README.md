@@ -61,29 +61,11 @@ Then open the URL shown in your terminal (usually `http://localhost:5173`).
 * Try paraphrasing text while disconnected from the internet — LinguaGlow still works thanks to Chrome’s built-in on-device AI.
 * Verify that no external API calls are made (privacy-first processing).
 
----
 
-## ✅ 4. Add Repository Metadata (for hackathon judges)
 
-In your GitHub repo, click **Settings → General → Description** and add:
 
-```
-LinguaGlow — AI-powered Chrome web app for paraphrasing, rewriting, and Excel formula generation using Chrome Built-in AI APIs (Gemini Nano).
-```
 
-Then add:
-
-* ✅ Topics: `chrome-ai`, `gemini-nano`, `built-in-ai`, `paraphrasing`, `excel-formula-generator`, `ai-extension`, `hackathon2025`
-* ✅ Public visibility
-* ✅ Pin a demo screenshot (from `/demo/demo-video.mp4` or `demo/screenshot.png`)
-
----
-
-## ✅ 5. Optional (but highly recommended)
-
-### 🎥 Add a Demo Video
-
-Record a short **2–3 minute demo video** showing:
+Recorded a short **2–3 minute demo video** showing:
 
 * App launch
 * Paraphrasing example
